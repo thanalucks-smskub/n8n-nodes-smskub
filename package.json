@@ -15,6 +15,10 @@
     "name": "SMSKUB",
     "email": "thanaluck.s@sms-kub.com"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/thanalucks-smskub/n8n-nodes-smskub"
+  },
   "main": "dist/index.js",
   "files": [
     "dist",
