@@ -1,0 +1,45 @@
+{
+  "name": "n8n-nodes-smskub",
+  "version": "1.0.8",
+  "description": "Official SMSKUB Node for n8n (SMS & OTP API)",
+  "keywords": [
+    "n8n",
+    "n8n-community-node",
+    "smskub",
+    "sms",
+    "otp",
+    "thailand"
+  ],
+  "license": "MIT",
+  "author": {
+    "name": "SMSKUB",
+    "email": "thanaluck.s@sms-kub.com"
+  },
+  "main": "dist/index.js",
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "scripts": {
+    "build": "tsc && gulp build:icons",
+    "lint": "eslint \"nodes/**/*.ts\" \"credentials/**/*.ts\"",
+    "dev": "n8n-node-dev",
+    "prepublishOnly": "npm run build"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "eslint": "^8.56.0",
+    "gulp": "^4.0.2",
+    "typescript": "^5.0.0",
+    "n8n-node-dev": "1.0.0"
+  },
+  "n8n": {
+    "n8nNodesApiVersion": 1,
+    "nodes": [
+      "dist/nodes/Smskub/Smskub.node.js"
+    ],
+    "credentials": [
+      "dist/credentials/SmskubApi.credentials.js"
+    ]
+  }
+}
