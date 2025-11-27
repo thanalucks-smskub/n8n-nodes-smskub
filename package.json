@@ -38,12 +38,17 @@
     "n8n-node-dev": "1.0.0"
   },
   "n8n": {
-    "n8nNodesApiVersion": 1,
-    "nodes": [
-      "dist/nodes/Smskub/Smskub.node.js"
-    ],
-    "credentials": [
-      "dist/credentials/SmskubApi.credentials.js"
-    ]
-  }
+  "credentials": [
+    {
+      "name": "SmskubApi",
+      "file": "dist/credentials/SmskubApi.credentials.js"
+    }
+  ],
+  "nodes": [
+    {
+      "name": "Smskub",
+      "file": "dist/nodes/Smskub/Smskub.node.js"
+    }
+  ]
+}
 }
