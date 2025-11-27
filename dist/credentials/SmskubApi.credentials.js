@@ -18,19 +18,18 @@ class SmskubApi {
             },
         ];
         /**
-         * n8n จะใช้ object `test` นี้เวลาเรากดปุ่ม "Test" ในหน้า Credentials
-         * ไม่ต้องเขียนฟังก์ชันเอง แค่บอกว่าจะให้ยิง request แบบไหน
+         * Used by n8n when user clicks "Test" inside Credentials page.
+         * MUST use the built-in httpRequest test method — n8n will perform
+         * the request automatically.
          */
         this.test = {
             request: {
+                method: 'GET',
                 baseURL: 'https://console.sms-kub.com/api',
                 url: '/senders/usable',
-                method: 'GET',
                 headers: {
-                    // ดึงค่าจาก credentials โดยตรง
                     key: '={{$credentials.apiKey}}',
                 },
-                // json: true ไม่จำเป็นต้องใส่ที่นี่ก็ได้ เพราะ n8n handle ให้
             },
         };
     }

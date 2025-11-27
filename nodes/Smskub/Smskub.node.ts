@@ -5,7 +5,7 @@ import {
 	ILoadOptionsFunctions,
 	NodeApiError,
 	IDataObject,
-    JsonObject
+	JsonObject,
 } from 'n8n-workflow';
 
 export class Smskub implements INodeType {
@@ -16,13 +16,14 @@ export class Smskub implements INodeType {
 				try {
 					const creds = await this.getCredentials('smskubApi');
 
-					const response = await this.helpers.request({
+					// 💡 แก้จาก request() → httpRequest()
+					const response = await this.helpers.httpRequest({
 						method: 'GET',
 						url: 'https://console.sms-kub.com/api/senders/usable',
-						json: true,
 						headers: {
 							key: creds.apiKey as string,
 						},
+						json: true,
 					});
 
 					if (!response?.data || !Array.isArray(response.data)) {
@@ -74,9 +75,6 @@ export class Smskub implements INodeType {
 		},
 
 		properties: [
-			// ------------------------------
-			// Action
-			// ------------------------------
 			{
 				displayName: 'Action',
 				name: 'operation',
@@ -98,9 +96,7 @@ export class Smskub implements INodeType {
 				],
 			},
 
-			// -------------------------------
-			// 1) Send SMS
-			// -------------------------------
+			// SEND MESSAGE -------------------------------------
 			{
 				displayName: 'Phone Number',
 				name: 'msgPhone',
@@ -152,9 +148,7 @@ export class Smskub implements INodeType {
 				},
 			},
 
-			// -------------------------------
-			// 2) Request OTP
-			// -------------------------------
+			// REQUEST OTP ---------------------------------------
 			{
 				displayName: 'Phone Number',
 				name: 'otpPhone',
@@ -200,9 +194,7 @@ export class Smskub implements INodeType {
 				},
 			},
 
-			// -------------------------------
-			// 3) Verify OTP
-			// -------------------------------
+			// VERIFY OTP ----------------------------------------
 			{
 				displayName: 'OTP Code',
 				name: 'verifyCode',

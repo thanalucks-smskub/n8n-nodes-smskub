@@ -9,13 +9,14 @@ class Smskub {
                 async getSenders() {
                     try {
                         const creds = await this.getCredentials('smskubApi');
-                        const response = await this.helpers.request({
+                        // 💡 แก้จาก request() → httpRequest()
+                        const response = await this.helpers.httpRequest({
                             method: 'GET',
                             url: 'https://console.sms-kub.com/api/senders/usable',
-                            json: true,
                             headers: {
                                 key: creds.apiKey,
                             },
+                            json: true,
                         });
                         if (!response?.data || !Array.isArray(response.data)) {
                             throw new Error('Invalid SMSKUB response');
@@ -60,9 +61,6 @@ class Smskub {
                 },
             },
             properties: [
-                // ------------------------------
-                // Action
-                // ------------------------------
                 {
                     displayName: 'Action',
                     name: 'operation',
@@ -83,9 +81,7 @@ class Smskub {
                         },
                     ],
                 },
-                // -------------------------------
-                // 1) Send SMS
-                // -------------------------------
+                // SEND MESSAGE -------------------------------------
                 {
                     displayName: 'Phone Number',
                     name: 'msgPhone',
@@ -135,9 +131,7 @@ class Smskub {
                         },
                     },
                 },
-                // -------------------------------
-                // 2) Request OTP
-                // -------------------------------
+                // REQUEST OTP ---------------------------------------
                 {
                     displayName: 'Phone Number',
                     name: 'otpPhone',
@@ -181,9 +175,7 @@ class Smskub {
                         },
                     },
                 },
-                // -------------------------------
-                // 3) Verify OTP
-                // -------------------------------
+                // VERIFY OTP ----------------------------------------
                 {
                     displayName: 'OTP Code',
                     name: 'verifyCode',
