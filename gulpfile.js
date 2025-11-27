@@ -1,9 +1,14 @@
 const { src, dest, series } = require('gulp');
 
-function buildIcons() {
-  return src('nodes/**/*.svg').pipe(dest('dist/nodes'));
+function buildCredentials() {
+	return src('src/credentials/**/*.ts')
+		.pipe(dest('dist/credentials'));
 }
 
-exports.build = series(buildIcons);
-exports.build.icons = buildIcons;
-exports['build:icons'] = buildIcons;
+function buildNodes() {
+	return src('src/nodes/**/*')
+		.pipe(dest('dist/nodes'));
+}
+
+exports.build = series(buildCredentials, buildNodes);
+exports['build:icons'] = function () {};

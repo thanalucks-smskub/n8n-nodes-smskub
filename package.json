@@ -22,10 +22,11 @@
   "main": "dist/index.js",
   "files": [
     "dist",
-    "README.md"
+    "README.md",
+    "LICENSE"
   ],
   "scripts": {
-    "build": "tsc && gulp build:icons",
+    "build": "tsc && gulp build",
     "lint": "eslint \"nodes/**/*.ts\" \"credentials/**/*.ts\"",
     "dev": "n8n-node-dev",
     "prepublishOnly": "npm run build"
