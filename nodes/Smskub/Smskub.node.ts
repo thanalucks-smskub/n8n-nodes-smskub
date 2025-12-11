@@ -14,11 +14,11 @@ export class Smskub implements INodeType {
 		loadOptions: {
 			async getSenders(this: ILoadOptionsFunctions) {
 				try {
-					const creds = await this.getCredentials('smskubApi');
+					const creds = await this.getCredentials('SmskubApi');
 
 					const response = await this.helpers.request({
 						method: 'GET',
-						url: 'https://console.sms-kub.com/api/senders/usable',
+						url: '/senders/usable',
 						json: true,
 						headers: {
 							key: creds.apiKey as string,
@@ -61,7 +61,7 @@ export class Smskub implements INodeType {
 
 		credentials: [
 			{
-				name: 'smskubApi',
+				name: 'SmskubApi',
 				required: true,
 			},
 		],

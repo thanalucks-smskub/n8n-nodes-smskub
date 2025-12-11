@@ -5,17 +5,19 @@
     "lib": ["ES2021"],
     "sourceMap": true,
     "outDir": "dist",
-    "rootDir": "./",
+    "rootDir": ".",
     "esModuleInterop": true,
     "resolveJsonModule": true,
     "declaration": false,
     "strict": true,
     "moduleResolution": "node",
-    "skipLibCheck": true
+    "skipLibCheck": true,
+    "types": ["node"],
+    "allowJs": false
   },
   "include": [
-    "nodes",
-    "credentials",
-    "index.ts"
+    "index.ts",
+    "nodes/**/*.ts",
+    "credentials/**/*.ts"
   ]
 }

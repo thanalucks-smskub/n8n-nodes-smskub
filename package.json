@@ -13,13 +13,22 @@
   "license": "MIT",
   "author": {
     "name": "SMSKUB",
-    "email": "thanaluck.s@sms-kub.com"
+    "email": "thanaluck.s@sms-kub.com",
+    "url": "https://sms-kub.com"
   },
-  "main": "dist/index.js",
-  "files": [
-    "dist",
-    "README.md"
-  ],
+  "repository": {
+  "type": "git",
+  "url": "https://github.com/thanalucks-smskub/n8n-nodes-smskub.git"
+  },
+  "bugs": {
+    "url": "https://github.com/thanalucks-smskub/n8n-nodes-smskub/issues"
+  },
+  "homepage": "https://github.com/thanalucks-smskub/n8n-nodes-smskub",
+    "main": "dist/index.js",
+    "files": [
+      "dist",
+      "README.md"
+    ],
   "scripts": {
     "build": "tsc && gulp build:icons",
     "lint": "eslint \"nodes/**/*.ts\" \"credentials/**/*.ts\"",
@@ -34,12 +43,17 @@
     "n8n-node-dev": "1.0.0"
   },
   "n8n": {
-    "n8nNodesApiVersion": 1,
-    "nodes": [
-      "dist/nodes/Smskub/Smskub.node.js"
-    ],
-    "credentials": [
-      "dist/credentials/SmskubApi.credentials.js"
-    ]
-  }
+  "credentials": [
+    {
+      "name": "SmskubApi",
+      "file": "dist/credentials/SmskubApi.credentials.js"
+    }
+  ],
+  "nodes": [
+    {
+      "name": "Smskub",
+      "file": "dist/nodes/Smskub/Smskub.node.js"
+    }
+  ]
+  } 
 }

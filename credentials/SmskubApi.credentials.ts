@@ -5,7 +5,7 @@ import {
 } from 'n8n-workflow';
 
 export class SmskubApi implements ICredentialType {
-	name = 'smskubApi';
+	name = 'SmskubApi';
 	displayName = 'SMSKUB API';
 	documentationUrl = 'https://documenter.getpostman.com/view/9887776/2sAYXCjyAF';
 

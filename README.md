@@ -3,7 +3,8 @@ Official SMSKUB Node for n8n
 Send SMS, Request OTP, and Verify OTP with SMSKUB API.
 
 <p align="center">
-  <img src="./nodes/Smskub/smskub.svg" width="100" />
+  <img src="https://raw.githubusercontent.com/thanalucks-smskub/n8n-nodes-smskub/main/nodes/Smskub/smskub.svg" width="100" />
+
 </p>
 
 ---
@@ -92,7 +93,7 @@ Example workflow JSON:
       },
       "id": "SMSKUB1",
       "name": "SMSKUB",
-      "type": "n8n-nodes-smskub.smsgkub",
+      "type": "n8n-nodes-smskub.smskub",
       "typeVersion": 1,
       "position": [500, 300]
     }

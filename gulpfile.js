@@ -1,9 +1,13 @@
-const { src, dest, series } = require('gulp');
+const { src, dest } = require('gulp');
+const path = require('path');
 
+/**
+ * Copy SVG icons into dist folder
+ * Preserve folder structure (e.g. nodes/Smskub/smskub.svg)
+ */
 function buildIcons() {
-  return src('nodes/**/*.svg').pipe(dest('dist/nodes'));
+  return src('nodes/**/*.svg', { base: './' })
+    .pipe(dest('dist'));
 }
 
-exports.build = series(buildIcons);
-exports.build.icons = buildIcons;
 exports['build:icons'] = buildIcons;
