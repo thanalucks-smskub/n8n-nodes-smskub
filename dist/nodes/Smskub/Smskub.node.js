@@ -8,10 +8,10 @@ class Smskub {
             loadOptions: {
                 async getSenders() {
                     try {
-                        const creds = await this.getCredentials('smskubApi');
+                        const creds = await this.getCredentials('SmskubApi');
                         const response = await this.helpers.request({
                             method: 'GET',
-                            url: 'https://console.sms-kub.com/api/senders/usable',
+                            url: '/senders/usable',
                             json: true,
                             headers: {
                                 key: creds.apiKey,
@@ -49,7 +49,7 @@ class Smskub {
             outputs: ['main'],
             credentials: [
                 {
-                    name: 'smskubApi',
+                    name: 'SmskubApi',
                     required: true,
                 },
             ],

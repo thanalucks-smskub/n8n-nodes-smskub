@@ -3,7 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.SmskubApi = void 0;
 class SmskubApi {
     constructor() {
-        this.name = 'smskubApi';
+        this.name = 'SmskubApi';
         this.displayName = 'SMSKUB API';
         this.documentationUrl = 'https://documenter.getpostman.com/view/9887776/2sAYXCjyAF';
         this.properties = [
