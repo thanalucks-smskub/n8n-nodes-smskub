@@ -1,5 +1,3 @@
-import { Smskub } from './nodes/Smskub/Smskub.node';
-import { SmskubApi } from './credentials/SmskubApi.credentials';
-
-export { Smskub, SmskubApi };
+export * from './nodes/Smskub/Smskub.node';
+export * from './credentials/SmskubApi.credentials';
 

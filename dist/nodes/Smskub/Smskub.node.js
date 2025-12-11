@@ -37,8 +37,8 @@ class Smskub {
         };
         this.description = {
             displayName: 'SMSKUB',
-            name: 'smskub',
-            icon: 'file:smskub.svg',
+            name: 'Smskub',
+            icon: 'file:Smskub/smskub.svg',
             group: ['transform'],
             version: 1,
             description: 'SMSKUB Messages & OTP API',
