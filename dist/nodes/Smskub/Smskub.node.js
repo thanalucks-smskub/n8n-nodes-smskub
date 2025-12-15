@@ -1,7 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Smskub = void 0;
-const n8n_workflow_1 = require("n8n-workflow");
 class Smskub {
     constructor() {
         this.methods = {
@@ -11,7 +10,7 @@ class Smskub {
                         const creds = await this.getCredentials('SmskubApi');
                         const response = await this.helpers.request({
                             method: 'GET',
-                            url: '/senders/usable',
+                            url: 'https://console.sms-kub.com/api/senders/usable',
                             json: true,
                             headers: {
                                 key: creds.apiKey,
@@ -30,7 +29,8 @@ class Smskub {
                         return returnData;
                     }
                     catch (error) {
-                        throw new n8n_workflow_1.NodeApiError(this.getNode(), error);
+                        const errorMessage = error.message || error.toString();
+                        throw new Error(`Failed to load senders: ${errorMessage}`);
                     }
                 },
             },
@@ -38,7 +38,7 @@ class Smskub {
         this.description = {
             displayName: 'SMSKUB',
             name: 'Smskub',
-            icon: 'file:Smskub/smskub.svg',
+            icon: 'file:smskub.svg',
             group: ['transform'],
             version: 1,
             description: 'SMSKUB Messages & OTP API',

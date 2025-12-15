@@ -18,7 +18,7 @@ export class Smskub implements INodeType {
 
 					const response = await this.helpers.request({
 						method: 'GET',
-						url: '/senders/usable',
+						url: 'https://console.sms-kub.com/api/senders/usable',
 						json: true,
 						headers: {
 							key: creds.apiKey as string,
@@ -40,7 +40,8 @@ export class Smskub implements INodeType {
 
 					return returnData;
 				} catch (error) {
-					throw new NodeApiError(this.getNode(), error as unknown as JsonObject);
+					const errorMessage = (error as any).message || (error as any).toString();
+                throw new Error(`Failed to load senders: ${errorMessage}`);
 				}
 			},
 		},
@@ -49,7 +50,7 @@ export class Smskub implements INodeType {
 	description: INodeTypeDescription = {
 		displayName: 'SMSKUB',
 		name: 'Smskub',
-		icon: 'file:Smskub/smskub.svg',
+		icon: 'file:smskub.svg',
 		group: ['transform'],
 		version: 1,
 		description: 'SMSKUB Messages & OTP API',
