@@ -1,6 +1,6 @@
 {
   "name": "n8n-nodes-smskub",
-  "version": "1.0.13",
+  "version": "1.0.14",
   "description": "Official SMSKUB Node for n8n (SMS & OTP API)",
   "keywords": [
     "n8n",
