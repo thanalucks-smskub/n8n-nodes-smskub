@@ -8,7 +8,7 @@ class Smskub {
                 async getSenders() {
                     try {
                         const creds = await this.getCredentials('SmskubApi');
-                        const response = await this.helpers.request({
+                        const response = await this.helpers.httpRequest({
                             method: 'GET',
                             url: 'https://console.sms-kub.com/api/senders/usable',
                             json: true,
