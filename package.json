@@ -2,6 +2,7 @@
   "name": "n8n-nodes-smskub",
   "version": "1.0.14",
   "description": "Official SMSKUB Node for n8n (SMS & OTP API)",
+  "main": "dist/index.js",
   "keywords": [
     "n8n",
     "n8n-community-node",
@@ -24,7 +25,6 @@
     "url": "https://github.com/thanalucks-smskub/n8n-nodes-smskub/issues"
   },
   "homepage": "https://github.com/thanalucks-smskub/n8n-nodes-smskub",
-  "main": "dist/index.js",
   "files": [
     "dist",
     "README.md"
@@ -43,17 +43,11 @@
     "n8n-node-dev": "1.0.0"
   },
   "n8n": {
-    "credentials": [
-      {
-        "name": "SmskubApi",
-        "file": "dist/credentials/SmskubApi.credentials.js"
-      }
-    ],
-    "nodes": [
-      {
-        "name": "Smskub",
-        "file": "dist/nodes/Smskub/Smskub.node.js"
-      }
-    ]
-  }
+  "credentials": [
+    "dist/credentials/SmskubApi.credentials.js"
+  ],
+  "nodes": [
+    "dist/nodes/Smskub/Smskub.node.js"
+  ]
+}
 }
