@@ -55,36 +55,80 @@ class Smskub {
             ],
             requestDefaults: {
                 baseURL: 'https://console.sms-kub.com/api',
-                headers: {
-                    key: '={{$credentials.apiKey}}',
-                },
+                // ไม่ต้องระบุ key header ที่นี่ — n8n inject ให้อัตโนมัติจาก credential authenticate method
             },
             properties: [
                 // ------------------------------
-                // Action
+                // Resource
                 // ------------------------------
                 {
-                    displayName: 'Action',
+                    displayName: 'Resource',
+                    name: 'resource',
+                    type: 'options',
+                    noDataExpression: true,
+                    default: 'sms',
+                    options: [
+                        {
+                            name: 'SMS',
+                            value: 'sms',
+                        },
+                        {
+                            name: 'OTP',
+                            value: 'otp',
+                        },
+                    ],
+                },
+                // ------------------------------
+                // Operation (SMS)
+                // ------------------------------
+                {
+                    displayName: 'Operation',
                     name: 'operation',
                     type: 'options',
-                    default: 'sendMessage',
+                    noDataExpression: true,
+                    default: 'send',
+                    displayOptions: {
+                        show: {
+                            resource: ['sms'],
+                        },
+                    },
                     options: [
                         {
                             name: 'Send Quick Message',
-                            value: 'sendMessage',
+                            value: 'send',
+                            action: 'Send a quick SMS message',
                         },
+                    ],
+                },
+                // ------------------------------
+                // Operation (OTP)
+                // ------------------------------
+                {
+                    displayName: 'Operation',
+                    name: 'operation',
+                    type: 'options',
+                    noDataExpression: true,
+                    default: 'request',
+                    displayOptions: {
+                        show: {
+                            resource: ['otp'],
+                        },
+                    },
+                    options: [
                         {
                             name: 'Request OTP',
-                            value: 'requestOtp',
+                            value: 'request',
+                            action: 'Request an OTP',
                         },
                         {
                             name: 'Verify OTP',
-                            value: 'verifyOtp',
+                            value: 'verify',
+                            action: 'Verify an OTP',
                         },
                     ],
                 },
                 // -------------------------------
-                // 1) Send SMS
+                // Fields: SMS → Send
                 // -------------------------------
                 {
                     displayName: 'Phone Number',
@@ -92,7 +136,12 @@ class Smskub {
                     type: 'string',
                     required: true,
                     default: '',
-                    displayOptions: { show: { operation: ['sendMessage'] } },
+                    displayOptions: {
+                        show: {
+                            resource: ['sms'],
+                            operation: ['send'],
+                        },
+                    },
                 },
                 {
                     displayName: 'Sender Name',
@@ -103,7 +152,12 @@ class Smskub {
                     typeOptions: {
                         loadOptionsMethod: 'getSenders',
                     },
-                    displayOptions: { show: { operation: ['sendMessage'] } },
+                    displayOptions: {
+                        show: {
+                            resource: ['sms'],
+                            operation: ['send'],
+                        },
+                    },
                 },
                 {
                     displayName: 'Message',
@@ -112,15 +166,25 @@ class Smskub {
                     required: true,
                     default: '',
                     typeOptions: { rows: 3 },
-                    displayOptions: { show: { operation: ['sendMessage'] } },
+                    displayOptions: {
+                        show: {
+                            resource: ['sms'],
+                            operation: ['send'],
+                        },
+                    },
                 },
                 {
-                    displayName: 'Send Message',
-                    name: 'sendMessageRouting',
+                    displayName: 'Send SMS',
+                    name: 'sendSmsRouting',
                     type: 'hidden',
                     default: '',
                     noDataExpression: true,
-                    displayOptions: { show: { operation: ['sendMessage'] } },
+                    displayOptions: {
+                        show: {
+                            resource: ['sms'],
+                            operation: ['send'],
+                        },
+                    },
                     routing: {
                         request: {
                             method: 'POST',
@@ -136,7 +200,7 @@ class Smskub {
                     },
                 },
                 // -------------------------------
-                // 2) Request OTP
+                // Fields: OTP → Request
                 // -------------------------------
                 {
                     displayName: 'Phone Number',
@@ -144,7 +208,12 @@ class Smskub {
                     type: 'string',
                     required: true,
                     default: '',
-                    displayOptions: { show: { operation: ['requestOtp'] } },
+                    displayOptions: {
+                        show: {
+                            resource: ['otp'],
+                            operation: ['request'],
+                        },
+                    },
                 },
                 {
                     displayName: 'Project ID',
@@ -152,14 +221,24 @@ class Smskub {
                     type: 'string',
                     required: true,
                     default: '',
-                    displayOptions: { show: { operation: ['requestOtp'] } },
+                    displayOptions: {
+                        show: {
+                            resource: ['otp'],
+                            operation: ['request'],
+                        },
+                    },
                 },
                 {
                     displayName: 'OTP Message (Optional)',
                     name: 'otpMessage',
                     type: 'string',
                     default: '',
-                    displayOptions: { show: { operation: ['requestOtp'] } },
+                    displayOptions: {
+                        show: {
+                            resource: ['otp'],
+                            operation: ['request'],
+                        },
+                    },
                 },
                 {
                     displayName: 'Request OTP',
@@ -167,7 +246,12 @@ class Smskub {
                     type: 'hidden',
                     default: '',
                     noDataExpression: true,
-                    displayOptions: { show: { operation: ['requestOtp'] } },
+                    displayOptions: {
+                        show: {
+                            resource: ['otp'],
+                            operation: ['request'],
+                        },
+                    },
                     routing: {
                         request: {
                             method: 'POST',
@@ -182,7 +266,7 @@ class Smskub {
                     },
                 },
                 // -------------------------------
-                // 3) Verify OTP
+                // Fields: OTP → Verify
                 // -------------------------------
                 {
                     displayName: 'OTP Code',
@@ -190,7 +274,12 @@ class Smskub {
                     type: 'string',
                     required: true,
                     default: '',
-                    displayOptions: { show: { operation: ['verifyOtp'] } },
+                    displayOptions: {
+                        show: {
+                            resource: ['otp'],
+                            operation: ['verify'],
+                        },
+                    },
                 },
                 {
                     displayName: 'Project ID',
@@ -198,7 +287,12 @@ class Smskub {
                     type: 'string',
                     required: true,
                     default: '',
-                    displayOptions: { show: { operation: ['verifyOtp'] } },
+                    displayOptions: {
+                        show: {
+                            resource: ['otp'],
+                            operation: ['verify'],
+                        },
+                    },
                 },
                 {
                     displayName: 'Phone Number',
@@ -206,7 +300,12 @@ class Smskub {
                     type: 'string',
                     required: true,
                     default: '',
-                    displayOptions: { show: { operation: ['verifyOtp'] } },
+                    displayOptions: {
+                        show: {
+                            resource: ['otp'],
+                            operation: ['verify'],
+                        },
+                    },
                 },
                 {
                     displayName: 'Verify OTP',
@@ -214,7 +313,12 @@ class Smskub {
                     type: 'hidden',
                     default: '',
                     noDataExpression: true,
-                    displayOptions: { show: { operation: ['verifyOtp'] } },
+                    displayOptions: {
+                        show: {
+                            resource: ['otp'],
+                            operation: ['verify'],
+                        },
+                    },
                     routing: {
                         request: {
                             method: 'POST',
