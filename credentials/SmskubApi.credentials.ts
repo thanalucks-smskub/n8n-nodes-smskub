@@ -9,10 +9,11 @@ export class SmskubApi implements ICredentialType {
 	name = 'SmskubApi';
 	displayName = 'SMSKUB API';
 	documentationUrl = 'https://documenter.getpostman.com/view/9887776/2sAYXCjyAF';
+	icon = 'file:smskub.svg' as const;
 
 	/**
-	 * n8n จะ inject header นี้ให้อัตโนมัติในทุก request
-	 * ไม่ต้องระบุ key header ใน node โดยตรงอีกต่อไป
+	 * n8n will automatically inject this header into every request.
+	 * No need to add the API key header in the node directly.
 	 */
 	authenticate: IAuthenticateGeneric = {
 		type: 'generic',
@@ -36,8 +37,8 @@ export class SmskubApi implements ICredentialType {
 	];
 
 	/**
-	 * n8n จะใช้ object `test` นี้เวลาเรากดปุ่ม "Test" ในหน้า Credentials
-	 * เนื่องจากมี authenticate method แล้ว ไม่ต้องใส่ key header ที่นี่อีก
+	 * n8n uses this object when the user clicks the "Test" button in the Credentials page.
+	 * Since the authenticate method is defined, the key header is injected automatically.
 	 */
 	test: ICredentialTestRequest = {
 		request: {

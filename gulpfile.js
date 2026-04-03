@@ -6,7 +6,7 @@ const path = require('path');
  * Preserve folder structure (e.g. nodes/Smskub/smskub.svg)
  */
 function buildIcons() {
-  return src('nodes/**/*.svg', { base: './' })
+  return src(['nodes/**/*.svg', 'credentials/**/*.svg'], { base: './' })
     .pipe(dest('dist'));
 }
 

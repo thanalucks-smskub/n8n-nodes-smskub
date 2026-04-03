@@ -1,6 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Smskub = void 0;
+const n8n_workflow_1 = require("n8n-workflow");
 class Smskub {
     constructor() {
         this.methods = {
@@ -41,12 +42,13 @@ class Smskub {
             icon: 'file:smskub.svg',
             group: ['transform'],
             version: 1,
+            subtitle: '={{$parameter.operation}}',
             description: 'SMSKUB Messages & OTP API',
             defaults: {
                 name: 'SMS-KUB',
             },
-            inputs: ['main'],
-            outputs: ['main'],
+            inputs: [n8n_workflow_1.NodeConnectionTypes.Main],
+            outputs: [n8n_workflow_1.NodeConnectionTypes.Main],
             credentials: [
                 {
                     name: 'SmskubApi',
@@ -55,7 +57,7 @@ class Smskub {
             ],
             requestDefaults: {
                 baseURL: 'https://console.sms-kub.com/api',
-                // ไม่ต้องระบุ key header ที่นี่ — n8n inject ให้อัตโนมัติจาก credential authenticate method
+                // API key header is injected automatically by credential authenticate method
             },
             properties: [
                 // ------------------------------
@@ -128,7 +130,7 @@ class Smskub {
                     ],
                 },
                 // -------------------------------
-                // Fields: SMS → Send
+                // Fields: SMS > Send
                 // -------------------------------
                 {
                     displayName: 'Phone Number',
@@ -200,7 +202,7 @@ class Smskub {
                     },
                 },
                 // -------------------------------
-                // Fields: OTP → Request
+                // Fields: OTP > Request
                 // -------------------------------
                 {
                     displayName: 'Phone Number',
@@ -266,7 +268,7 @@ class Smskub {
                     },
                 },
                 // -------------------------------
-                // Fields: OTP → Verify
+                // Fields: OTP > Verify
                 // -------------------------------
                 {
                     displayName: 'OTP Code',

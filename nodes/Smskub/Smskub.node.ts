@@ -3,7 +3,7 @@ import {
 	INodeTypeDescription,
 	INodePropertyOptions,
 	ILoadOptionsFunctions,
-	NodeApiError,
+	NodeConnectionTypes,
 	IDataObject,
 } from 'n8n-workflow';
 
@@ -52,12 +52,13 @@ export class Smskub implements INodeType {
 		icon: 'file:smskub.svg',
 		group: ['transform'],
 		version: 1,
+		subtitle: '={{$parameter.operation}}',
 		description: 'SMSKUB Messages & OTP API',
 		defaults: {
 			name: 'SMS-KUB',
 		},
-		inputs: ['main'],
-		outputs: ['main'],
+		inputs: [NodeConnectionTypes.Main],
+		outputs: [NodeConnectionTypes.Main],
 
 		credentials: [
 			{
@@ -68,7 +69,7 @@ export class Smskub implements INodeType {
 
 		requestDefaults: {
 			baseURL: 'https://console.sms-kub.com/api',
-			// ไม่ต้องระบุ key header ที่นี่ — n8n inject ให้อัตโนมัติจาก credential authenticate method
+			// API key header is injected automatically by credential authenticate method
 		},
 
 		properties: [
@@ -145,7 +146,7 @@ export class Smskub implements INodeType {
 			},
 
 			// -------------------------------
-			// Fields: SMS → Send
+			// Fields: SMS > Send
 			// -------------------------------
 			{
 				displayName: 'Phone Number',
@@ -218,7 +219,7 @@ export class Smskub implements INodeType {
 			},
 
 			// -------------------------------
-			// Fields: OTP → Request
+			// Fields: OTP > Request
 			// -------------------------------
 			{
 				displayName: 'Phone Number',
@@ -285,7 +286,7 @@ export class Smskub implements INodeType {
 			},
 
 			// -------------------------------
-			// Fields: OTP → Verify
+			// Fields: OTP > Verify
 			// -------------------------------
 			{
 				displayName: 'OTP Code',

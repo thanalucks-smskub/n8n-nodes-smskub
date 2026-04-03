@@ -6,9 +6,10 @@ class SmskubApi {
         this.name = 'SmskubApi';
         this.displayName = 'SMSKUB API';
         this.documentationUrl = 'https://documenter.getpostman.com/view/9887776/2sAYXCjyAF';
+        this.icon = 'file:smskub.svg';
         /**
-         * n8n จะ inject header นี้ให้อัตโนมัติในทุก request
-         * ไม่ต้องระบุ key header ใน node โดยตรงอีกต่อไป
+         * n8n will automatically inject this header into every request.
+         * No need to add the API key header in the node directly.
          */
         this.authenticate = {
             type: 'generic',
@@ -30,8 +31,8 @@ class SmskubApi {
             },
         ];
         /**
-         * n8n จะใช้ object `test` นี้เวลาเรากดปุ่ม "Test" ในหน้า Credentials
-         * เนื่องจากมี authenticate method แล้ว ไม่ต้องใส่ key header ที่นี่อีก
+         * n8n uses this object when the user clicks the "Test" button in the Credentials page.
+         * Since the authenticate method is defined, the key header is injected automatically.
          */
         this.test = {
             request: {
