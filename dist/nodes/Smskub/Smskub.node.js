@@ -9,6 +9,8 @@ class Smskub {
                 async getSenders() {
                     try {
                         const creds = await this.getCredentials('SmskubApi');
+                        // loadOptions context requires manual credential handling
+                        // (authenticate method covers declarative routing requests only)
                         const response = await this.helpers.httpRequest({
                             method: 'GET',
                             url: 'https://console.sms-kub.com/api/senders/usable',
@@ -43,9 +45,9 @@ class Smskub {
             group: ['transform'],
             version: 1,
             subtitle: '={{$parameter.operation}}',
-            description: 'SMSKUB Messages & OTP API',
+            description: 'Send SMS messages and manage OTP via SMSKUB API',
             defaults: {
-                name: 'SMS-KUB',
+                name: 'SMSKUB',
             },
             inputs: [n8n_workflow_1.NodeConnectionTypes.Main],
             outputs: [n8n_workflow_1.NodeConnectionTypes.Main],
@@ -57,7 +59,6 @@ class Smskub {
             ],
             requestDefaults: {
                 baseURL: 'https://console.sms-kub.com/api',
-                // API key header is injected automatically by credential authenticate method
             },
             properties: [
                 // ------------------------------
@@ -69,14 +70,17 @@ class Smskub {
                     type: 'options',
                     noDataExpression: true,
                     default: 'sms',
+                    description: 'The resource to operate on',
                     options: [
                         {
                             name: 'SMS',
                             value: 'sms',
+                            description: 'Send SMS messages',
                         },
                         {
                             name: 'OTP',
                             value: 'otp',
+                            description: 'Request and verify OTP codes',
                         },
                     ],
                 },
@@ -89,6 +93,7 @@ class Smskub {
                     type: 'options',
                     noDataExpression: true,
                     default: 'send',
+                    description: 'The operation to perform',
                     displayOptions: {
                         show: {
                             resource: ['sms'],
@@ -98,6 +103,7 @@ class Smskub {
                         {
                             name: 'Send Quick Message',
                             value: 'send',
+                            description: 'Send a quick SMS message to a phone number',
                             action: 'Send a quick SMS message',
                         },
                     ],
@@ -111,6 +117,7 @@ class Smskub {
                     type: 'options',
                     noDataExpression: true,
                     default: 'request',
+                    description: 'The operation to perform',
                     displayOptions: {
                         show: {
                             resource: ['otp'],
@@ -120,11 +127,13 @@ class Smskub {
                         {
                             name: 'Request OTP',
                             value: 'request',
+                            description: 'Send an OTP code to a phone number',
                             action: 'Request an OTP',
                         },
                         {
                             name: 'Verify OTP',
                             value: 'verify',
+                            description: 'Verify an OTP code entered by the user',
                             action: 'Verify an OTP',
                         },
                     ],
@@ -138,6 +147,7 @@ class Smskub {
                     type: 'string',
                     required: true,
                     default: '',
+                    description: 'The recipient phone number (e.g. 0812345678)',
                     displayOptions: {
                         show: {
                             resource: ['sms'],
@@ -151,6 +161,7 @@ class Smskub {
                     type: 'options',
                     required: true,
                     default: '',
+                    description: 'The sender name to display on the SMS. Choose from your approved senders.',
                     typeOptions: {
                         loadOptionsMethod: 'getSenders',
                     },
@@ -167,6 +178,7 @@ class Smskub {
                     type: 'string',
                     required: true,
                     default: '',
+                    description: 'The text content of the SMS message',
                     typeOptions: { rows: 3 },
                     displayOptions: {
                         show: {
@@ -210,6 +222,7 @@ class Smskub {
                     type: 'string',
                     required: true,
                     default: '',
+                    description: 'The phone number to send the OTP code to (e.g. 0812345678)',
                     displayOptions: {
                         show: {
                             resource: ['otp'],
@@ -223,6 +236,7 @@ class Smskub {
                     type: 'string',
                     required: true,
                     default: '',
+                    description: 'The OTP project ID from your SMSKUB console',
                     displayOptions: {
                         show: {
                             resource: ['otp'],
@@ -231,10 +245,11 @@ class Smskub {
                     },
                 },
                 {
-                    displayName: 'OTP Message (Optional)',
+                    displayName: 'OTP Message',
                     name: 'otpMessage',
                     type: 'string',
                     default: '',
+                    description: 'Custom OTP message template (optional, uses default if empty)',
                     displayOptions: {
                         show: {
                             resource: ['otp'],
@@ -276,6 +291,7 @@ class Smskub {
                     type: 'string',
                     required: true,
                     default: '',
+                    description: 'The OTP code to verify',
                     displayOptions: {
                         show: {
                             resource: ['otp'],
@@ -289,6 +305,7 @@ class Smskub {
                     type: 'string',
                     required: true,
                     default: '',
+                    description: 'The OTP project ID from your SMSKUB console',
                     displayOptions: {
                         show: {
                             resource: ['otp'],
@@ -302,6 +319,7 @@ class Smskub {
                     type: 'string',
                     required: true,
                     default: '',
+                    description: 'The phone number that received the OTP code',
                     displayOptions: {
                         show: {
                             resource: ['otp'],
