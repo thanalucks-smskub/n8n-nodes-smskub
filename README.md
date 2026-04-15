@@ -38,7 +38,7 @@ Then restart n8n.
 Once approved by n8n, this node will appear in:
 
 ```
-Settings → Community Nodes → Search “SMSKUB”
+Settings → Community Nodes → Search "SMSKUB"
 ```
 
 ---
@@ -67,13 +67,9 @@ You should see:
 ## 📤 Example: Send SMS
 
 1. Add **SMSKUB** node  
-2. Select:
-
-```
-Action → Send Quick Message
-```
-
-3. Fill:
+2. Select **Resource:** `SMS`  
+3. Select **Operation:** `Send Quick Message`  
+4. Fill:
 
 - **Phone Number:** `66812345678`  
 - **Sender Name:** (loaded automatically)  
@@ -86,14 +82,15 @@ Example workflow JSON:
   "nodes": [
     {
       "parameters": {
-        "operation": "sendMessage",
+        "resource": "sms",
+        "operation": "send",
         "msgPhone": "66812345678",
         "msgFrom": "SENDER",
         "msgText": "Hello from SMSKUB"
       },
       "id": "SMSKUB1",
       "name": "SMSKUB",
-      "type": "n8n-nodes-smskub.smskub",
+      "type": "n8n-nodes-smskub.Smskub",
       "typeVersion": 1,
       "position": [500, 300]
     }
@@ -105,14 +102,10 @@ Example workflow JSON:
 
 ## 🔐 Example: Request OTP
 
-1. Add **SMSKUB node**  
-2. Select:
-
-```
-Action → Request OTP
-```
-
-Fill:
+1. Add **SMSKUB** node  
+2. Select **Resource:** `OTP`  
+3. Select **Operation:** `Request OTP`  
+4. Fill:
 
 - **Phone Number**
 - **Project ID**
@@ -122,15 +115,14 @@ Fill:
 
 ## 🔎 Example: Verify OTP
 
-```
-Action → Verify OTP
-```
+1. Add **SMSKUB** node  
+2. Select **Resource:** `OTP`  
+3. Select **Operation:** `Verify OTP`  
+4. Fill:
 
-Fill:
-
-- OTP Code  
-- Project ID  
-- Phone Number  
+- **OTP Code**  
+- **Project ID**  
+- **Phone Number**  
 
 ---
 
@@ -146,7 +138,7 @@ https://documenter.getpostman.com/view/9887776/2sAYXCjyAF
 | File | Description |
 |------|-------------|
 | `Smskub.node.ts` | Main node logic |
-| `SmskubApi.credentials.ts` | Credential type + automatic test |
+| `SmskubApi.credentials.ts` | Credential type with authenticate method |
 | `smskub.svg` | Node icon |
 | `package.json` | Node metadata |
 | `gulpfile.js` | Icon build pipeline |
@@ -164,4 +156,3 @@ MIT License (Same as n8n community nodes)
 For help with API usage:  
 https://sms-kub.com  
 Or contact SMSKUB support team.
-
